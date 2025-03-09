@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Category Assigner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Your Name to Get Your Secret Category</h2>
+    <input type="text" id="playerName" placeholder="Your Name">
+    <button onclick="assignCategory()">Get Category</button>
+    <p id="result"></p>
+
+    <script>
+        let categories = ["Movies", "Sports", "Music", "Food", "Random"];
+        let assignedCategories = {};
+
+        function assignCategory() {
+            let name = document.getElementById("playerName").value.trim();
+            if (!name) {
+                alert("Please enter your name.");
+                return;
+            }
+            
+            if (assignedCategories[name]) {
+                document.getElementById("result").innerText = "Your category: " + assignedCategories[name];
+                return;
+            }
+
+            if (categories.length === 0) {
+                document.getElementById("result").innerText = "No categories left!";
+                return;
+            }
+
+            let randomIndex = Math.floor(Math.random() * categories.length);
+            let category = categories.splice(randomIndex, 1)[0]; // Remove assigned category
+            assignedCategories[name] = category;
+            
+            document.getElementById("result").innerText = "Your category: " + category;
+        }
+    </script>
+</body>
+</html>
